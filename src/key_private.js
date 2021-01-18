@@ -17,7 +17,7 @@ module.exports = PrivateKey;
 
 /**
   @typedef {string} wif - https://en.bitcoin.it/wiki/Wallet_import_format
-  @typedef {string} pubkey - EOSKey..
+  @typedef {string} pubkey - ROXEKey..
   @typedef {ecurve.Point} Point
 */
 
@@ -113,7 +113,7 @@ function PrivateKey(d) {
       @example activePrivate.getChildKey('mycontract').getChildKey('myperm')
     */
     function getChildKey(name) {
-      // console.error('WARNING: getChildKey untested against eosd'); // no eosd impl yet
+      // console.error('WARNING: getChildKey untested against d'); // no eosd impl yet
       const index = createHash('sha256').update(toBuffer()).update(name).digest()
       return PrivateKey(index)
     }
@@ -292,9 +292,9 @@ function unitTest() {
 
   const pub = pvt.toPublic()
   const pubError = 'pubkey string comparison test failed on a known public key'
-  assert.equal(pub.toString(), 'EOS859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM', pubError)
+  assert.equal(pub.toString(), 'ROXE859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM', pubError)
   // assert.equal(pub.toString(), 'PUB_K1_859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2Ht7beeX', pubError)
-  // assert.equal(pub.toStringLegacy(), 'EOS859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM', pubError)
+  // assert.equal(pub.toStringLegacy(), 'ROXE859gxfnXyUriMgUeThh1fWv3oqcpLFyHa3TfFYC4PK2HqhToVM', pubError)
 
   doesNotThrow(() => PrivateKey.fromString(pvt.toWif()), 'converting known wif from string')
   doesNotThrow(() => PrivateKey.fromString(pvt.toString()), 'converting known pvt from string')
